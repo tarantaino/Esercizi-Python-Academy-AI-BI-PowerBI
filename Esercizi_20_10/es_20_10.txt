@@ -1,0 +1,126 @@
+def no_duplicati(lista):
+    """
+    Funzione che restituisce una lista senza duplicati
+    :param lista: lista da passare in chiamata
+    :return: None, è una stampa
+    """
+    nuova_lista = []
+    for i in lista:
+        if i not in nuova_lista:
+            nuova_lista.append(i)
+
+    print(nuova_lista)
+
+
+ls = ["a", "a", "b", "b", "c", "c", "d", "d"] #lista d'esempio
+no_duplicati(ls) #invoke della funzione passando ls -> restituisce ['a','b','c','d']
+
+------------------------------------------------------------------------------------------
+
+def dizionario_media(tupla):
+    """
+
+    :param tupla: Tupla con nomi e voti da passare
+    :return: None
+    """
+    diz_media = {} #creiamo diz vuoto
+    for n,v in tupla: #per ogni nome e voto all'interno della tupla
+        somma = 0 #variabile per somma a 0
+        conteggio = 0 #conteggio voti a 0
+        for n2, v2 in tupla: #per ogni nome2 e voto2 in tupla
+            if n2 == n: #se uguali, per eliminare i duplicati
+                somma +=v2 #aggiungi v2 alla somma
+                conteggio +=1 #aumenta il conteggio
+        diz_media[n] = somma/conteggio #ad ogni nome, associamo la media
+
+    print(f"Studenti e media dei voti: {diz_media}")
+
+
+stud_voti = [("Usagi", 9), ("Ami", 6), ("Minako", 5), ("Usagi", 6), ("Minako", 8)]
+dizionario_media(stud_voti)
+
+------------------------------------------------------------------------------------------
+def d_iniziali(lista):
+
+    diz_iniziali = {} #inizializzazione dizionario
+
+    for n in lista: #per ogni nome nella lista
+        if n[0] not in diz_iniziali: #se il nome[0] non è chiave nel dizionario
+            diz_iniziali[n[0]] = [] #la associo ad una lista vuota
+        diz_iniziali[n[0]].append(n) #dopodiché se la chiave esiste aggiungo il nome intero alla lista iniziale
+
+    print(f"Dizionario delle iniziali e nomi associati:\n {diz_iniziali}")
+
+
+
+ls_nomi = ['Alessandro', 'Anna', 'Maria', 'Giorgio', 'Gaetano']
+d_iniziali(ls_nomi)
+
+------------------------------------------------------------------------------------------
+
+from collections import Counter #import di counter per contare le parole
+
+def diz_cnt():
+    """
+    Nessun valore da passare perché è richiesto in input
+    :return: Ritorna un dizionario
+    """
+    while True:
+        f = input("Inserisci frase: ").strip()
+
+        f_split = f.split() #per separare
+        print(f"Parole separate: {f_split}")
+        print("\n")
+
+        print(f"Conteggio parole:\n {Counter(f_split)}")
+        print("\n") #conteggio parole
+
+        diz = {}
+        for i in f_split:
+            diz[i] = diz.get(i, 0)+1 #per ogni parola all'interno di f_split associo il value che sarà uguale a 0+1 per ogni parola comparsa
+
+        break
+
+    return  diz
+
+
+print(f"Dizionario frase inserita:\n {diz_cnt()}")
+
+------------------------------------------------------------------------------------------
+
+def subtotale(*prezzi):
+    return sum(prezzi) #calcolo del subtotale
+
+def applica_sconto(importo, percentuale = 0):
+        if percentuale !=0:
+            importo = importo - importo * percentuale/100
+        return round(importo, 2) #calcolo dello sconto se esiste
+
+def ordine_prodotti(
+        cliente,
+        *prezzi,
+        sconto = 0,
+        spedizione= 0
+    ):
+
+    print("=== PRODOTTI ACQUISTATI ===")
+    tot = subtotale(*prezzi)
+    if sconto != 0:
+        tot = applica_sconto(tot, sconto)  #se esiste lo sconto passiamo applica_sconto che lo calcola
+
+    if spedizione != 0:
+        tot += spedizione #se la spedizione è diversa da zero fa una semplice somma
+
+    return tot #ritorna il totale
+
+
+ordine_mario = ordine_prodotti(
+    "Mario",
+    49.00,
+    15.50,
+    12.00,
+    sconto = 10,
+    spedizione = 5 #dichiarazione dei parametri da passare alla funzione ordine_prodotti
+)
+
+print(f"Totale finale: {ordine_mario:.2f} euro") #stampa

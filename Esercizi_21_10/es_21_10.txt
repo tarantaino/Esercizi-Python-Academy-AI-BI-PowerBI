@@ -1,0 +1,120 @@
+def my_decorator(func):
+    def wrapper():
+        for i in range(3):
+            func()
+    return wrapper
+
+@my_decorator
+def hello_world():
+    print("Hello World!")
+
+hello_world()
+
+------------------------------------------------------------------------------------------------
+
+def media_numeri(lista):
+    s = 0
+    c = 0
+    for i in lista:
+        s += i
+        c += 1
+
+    m = s/c
+    return f"La media della lista di numeri è: {round(m, 2)}" #funzione che calcola la media
+    #restituisce direttamente la stringa con il valore, ergo è necessario un print della funzione con la lista come arg
+
+n = [3, -1, 7, -5, 10]
+
+p_n = list(filter(lambda x: x>=0, n)) #crea lista con lambda che filtra i numeri maggiori zero per escludere i negativi
+print(p_n)#stampa di debug
+
+print(media_numeri(p_n)) #invoke funzione
+
+------------------------------------------------------------------------------------------------
+
+ls_eta = [
+    {"eta": 30},
+    {"eta": 22},
+    {"eta": 45},
+    {"eta": 18},
+]
+
+ls_eta_cresc = sorted(ls_eta, key=lambda d: d["eta"])
+print(ls_eta_cresc)
+
+------------------------------------------------------------------------------------------------
+
+classifica = [
+    {"Doran": 1500},
+    {"PaoloCannone22": 1900},
+    {"Terenas": 1300},
+    {"Faker": 3000},
+    {"Brizz": 2700 }
+]
+
+class_ord = sorted(classifica, key=lambda p: list(p.values())[0], reverse = True)#reverse = True perché sorted ordina in maniera crescente
+                            #(p.values())[0] restituisce i valori del dizionario, list() per convertirli in lista
+
+for i in enumerate(class_ord, start = 1):
+    print(i) #stampa classifica con posizione numerata
+
+------------------------------------------------------------------------------------------------
+
+print("======= CALCOLATRICE =======")
+
+diz_o = { #setto dizionario con operazioni arrotondate (vedi sotto)
+    "+": lambda x,y: round(x + y, 2),
+    "-": lambda x,y: round(x - y, 2),
+    "*": lambda x,y: round(x * y, 2),
+    "/": lambda x,y: round(x / y, 2),
+}
+
+while True: #avrei direttamente usato un try/except per escludere i caratteri alfabetici
+    n1 = input("Benvenuto nella calcolatrice, inserisci primo numero: ").strip()
+    n2 = input("Inserisci secondo numero: ").strip()
+    if n1.isalpha() or n2.isalpha():
+        print("Devi inserire due numeri!")
+        continue
+    n1 = float(n1)
+    n2 = float(n2) #trasformati in float e non int per far assumere valori con virgola, tutte le operazioni sono arrotondate a 2 cifre decimali (vedi sopra)
+    # print(n1, n2) stampa di debug
+    s = input("Inserisci il simbolo dell'operazione da effettuare sui due numeri (+, -, *, /): ").strip()
+
+    if s not in diz_o: #esclude qualunque carattere che non sia un'operatore
+        print("Operazione non valida!")
+    elif s == "/" and n2 == 0:
+        print("Impossibile dividere per 0")
+    else:
+        print(diz_o[s](n1,n2)) #passo la risposta s al dizionario che recupera l'operatore associato alla lambda a cui passo i due numeri
+
+    break
+------------------------------------------------------------------------------------------------
+
+verifica_admin = lambda role: role == "admin"
+#lambda che verifica il ruolo
+
+def solo_admin(func):#decorator
+    def wrapper(role, *args, **kwargs): #wrapper
+        if verifica_admin(role):
+            return func(role, *args, **kwargs)
+        else:
+            print("<!> - Accesso negato. Utente non autorizzato. - <!>")
+
+    return wrapper
+
+@solo_admin #posizionamento wrapper
+def visualizza_report(role):
+    print("Ecco il tuo report:\n")
+    print("RECEIVING TRANSMISSION..."
+          "\n\n"
+          "I've seen things you people wouldn't believe.\n"
+          "Attack ships on fire off the shoulder of Orion.\n"
+          "I watched c-beams glitter in the dark near the Tannhäuser Gate.\n"
+          "All those moments will be lost in time, like tears in rain.\n"
+          "Time to die.\n"
+          "\n"
+          "...END OF TRANSMISSION"
+          )
+
+utente_role = input("Per visualizzare il report inserisci il tuo ruolo utente: ").strip()
+visualizza_report(utente_role) #invoke

@@ -1,0 +1,178 @@
+print("=== OPERAZIONI ===")
+
+diz_o = {  # prendo dizionario con le lambda da esercizio precedente
+        "+": lambda x, y: round(x + y, 2),
+        "-": lambda x, y: round(x - y, 2),
+        "*": lambda x, y: round(x * y, 2),
+        "/": lambda x, y: round(x / y, 2),
+    }
+
+def chiedi_numeri():
+#funzione per chiedere i numeri in input, while True per continuare a chiedere in caso di errore
+    while True:
+       try: #blocco try/except nel caso di ValueError
+            x = float(input("Inserisci primo numero: "))
+            y = float(input("Inserisci secondo numero: "))
+            return (x, y)
+       except ValueError:
+           print("Devi inserire un numero!\n")
+
+
+
+def operazione(x,y): #passo x,y
+#input operazione, se si trova nel dizionario altro try/except sul ZeroDivisionError
+    while True:
+        o = input("Inserisci operazione (+,-,*,/): ").strip()
+        if o in diz_o:
+           try:
+            return f"Risultato: {diz_o[o](x,y)}"
+           except ZeroDivisionError:
+               return "ERRORE - Non è possibile dividere per 0!"
+        print("Simbolo non valido!")
+
+
+x, y = chiedi_numeri()
+print(operazione(x,y))
+
+------------------------------------------------------------------------------------------------
+
+print("=== METEO ===\n")
+
+meteo = {
+    "Roma": 18.5,
+    "Milano": 12.0,
+    "Napoli": 20.3,
+    "Torino": 10.8,
+    "Palermo": 22.1,
+    "Pisa": 15.6,
+}
+
+def chiedi_utente():
+
+    while True:
+        i = input("Quale città vuoi visualizzare? ").strip().capitalize()
+
+        try:
+            print(f"Temperature di {i}: {meteo[i]}")
+            break
+        except KeyError:
+            print(f"Errore - {i} non è presente nella lista!\n")
+
+
+
+
+print("Elenco città: ")
+for i in meteo.keys():
+        print(f"{i}")
+
+print("\n")
+
+
+chiedi_utente()
+
+------------------------------------------------------------------------------------------------
+
+
+"""
+3) Scrivi un programma che gestisca un piccolo magazzino. L'utente può:
+
+- Aggiungere un prodotto indicando nome, quantità e prezzo unitario.
+
+- Visualizzare l'inventario completo.
+
+- Calcolare il valore totale del magazzino.
+
+- Cercare un prodotto per nome.
+
+Il programma deve gestire:
+
+- Inserimenti non numerici.
+
+- Ricerca di prodotti inesistenti.
+
+- Tentativi di inserire quantità o prezzi negativi.
+"""
+
+def aggiungi_prod(magazzino):
+
+    while True:
+        try:
+            pr = input("Inserisci nome prodotto: ").strip()
+            if pr.isdigit(): #se è un numero - raise ValueError
+                raise ValueError
+            q = int(input("Inserisci qta: "))
+            if q < 0:  #se è minore di 0
+                raise ValueError
+            pz = float(input("Inserisci prezzo: "))
+            if pz <= 0: #se è minore o uguale - raise ValueError
+                raise ValueError
+        except ValueError:
+            print("ERRORE - Dati inconsistenti!")
+            continue
+
+        magazzino.append({ #append dei dati nella lista di dizionari
+            "prodotto": pr,
+            "qta": q,
+            "prezzo": pz,
+        })
+
+        r = input("Vuoi inserire un altro prodotto? (s/n) ").strip().lower()
+        if r != "s":
+            break #se è necessario inserire altro
+
+
+def visualizza(magazzino):
+    #semplice stampa
+    print("=== STOCK ===")
+    for prodotti in magazzino:
+                print(prodotti)
+    else: #se magazzino vuoto
+           print("Magazzino vuoto!")
+
+def totale(magazzino):
+    #totale = qta * prezzo
+    tot = 0
+    for p in magazzino:
+        tot += p["qta"] * p["prezzo"]
+    print(f"Valore totale del magazzino: {tot:.2f}€")
+
+def cerca_prod(magazzino):
+
+    n = input("Nome del prodotto da cercare: ").strip().lower()
+    for p in magazzino:
+        if p["prodotto"].lower() == n:
+            print(p)
+            return
+    print(f"Prodotto '{n}' non trovato!")
+
+magazzino = []
+#lista vuota che viene riempita avviando la funzione
+
+while True: #match case per avviare le funzioni
+    print("\n=== MAGAZZINO ===")
+    print("1 - Aggiungi prodotto")
+    print("2 - Visualizza inventario")
+    print("3 - Valore totale")
+    print("4 - Cerca prodotto")
+    print("0 - Esci\n")
+
+    try:
+        r = int(input("Quale operazione desideri eseguire? "))
+    except ValueError:
+        print("Devi inserire un numero!")
+        continue
+
+    match r:
+        case 1:
+            aggiungi_prod(magazzino)
+        case 2:
+            visualizza(magazzino)
+        case 3:
+            totale(magazzino)
+        case 4:
+            cerca_prod(magazzino)
+        case 0:
+            print("Arrivederci!")
+            break
+        case _:
+            print("Operazione non valida!")

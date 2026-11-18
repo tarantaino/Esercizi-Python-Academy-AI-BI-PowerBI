@@ -1,0 +1,48 @@
+1 - Hai una lista con duplicati e vuoi ottenere una lista pulita, mantenendo però l’ordine originale. Scrivere una funzione che, data una lista, restituisca una lista senza duplicati.
+
+
+
+
+2 - Data una lista di tuple, ogni tupla rappresenta un voto per gli studenti.
+
+es:
+
+[("Luca", 7), ("Anna", 8), ("Luca", 6)]
+
+Vuoi calcolare la media dei voti per ogni studente sottoforma di dizionario.
+
+
+
+
+3 - Data una lista di nomi, vuoi raggrupparli per iniziale nel seguente modo:
+
+es:
+
+{
+    "L": ["Luca", "Leonardo"],
+    "A": ["Anna"], 
+    "M": ["Marco"]
+}
+
+
+4 - Hai una frase inserita dall’utente.
+Vuoi costruire un sistema che:
+
+- separa le parole
+- conta quante volte compaiono
+- restituisce un dizionario
+
+
+
+
+5 - Stai sviluppando una funzione per gestire un ordine online.
+
+Il cliente può acquistare un numero variabile di prodotti (prezzi)
+Può anche specificare opzioni aggiuntive (sconto, spedizione, nome cliente, ecc.)
+
+Scrivere una funzione che:
+
+- somma tutti i prezzi dei prodotti
+- applica uno sconto (se presente)
+- aggiunge il costo di spedizione (se presente)
+- restituisce il totale finale

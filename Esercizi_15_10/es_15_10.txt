@@ -1,0 +1,87 @@
+""" - Un sistema registra gli ID dei dipendenti che hanno effettuato l'accesso
+a un'applicazione durante la giornata.
+
+accessi = [
+    "A102",
+    "B205",
+    "A102",
+    "C310",
+    "B205",
+    "D411",
+    "E150",
+    "D411",
+    "D411"
+]
+
+Costruisci una struttura contenente tutti gli ID unici,
+conta quanti accessi duplicati sono presenti nella lista,
+stampa ogni ID che compare per la prima volta,
+stampa ogni ID che viene trovato nuovamente (duplicato),
+stampa il numero totale di dipendenti distinti che hanno effettuato l'accesso.
+
+N.B. se serve, avvalersi del metodo di creazione del set tramite funzione. Es: s = set()
+
+"""
+
+accessi = [
+    "A102",
+    "B205",
+    "A102",
+    "C310",
+    "B205",
+    "D411",
+    "E150",
+    "D411",
+    "D411"
+]
+
+set_accessi = set()
+#print(set_accessi)
+
+duplicato = 0
+for i in accessi:
+    if i not in set_accessi:
+        set_accessi.add(i)
+        print(f"Primo accesso: {i}")
+    else:
+        duplicato += 1
+        print(f"Accesso duplicato rilevato da parte di: {i}\n") #stampa l'id che viene trovato nuovamente
+
+print("\n")
+print(f"Numero accessi duplicati: {duplicato}") #stampa numero accessi duplicati
+print(f"Utenti distinti: {set_accessi}") #stampa utenti distinti
+
+
+
+
+
+
+"""2 - Scrivere un programma Python che gestisca un elenco di partecipanti a un corso di informatica.
+
+Il programma deve svolgere le seguenti operazioni:
+1. Creare una lista contenente alcuni nomi.
+2. Stampare a video l'intera lista dei partecipanti.
+3. Stampare il primo e l'ultimo nome della lista.
+4. Stampare i primi tre nomi della lista.
+5. Stampare gli ultimi due nomi della lista.
+6. Stampare i nomi dei partecipanti dalla seconda alla quinta posizione.
+7. Stampare il nome più lungo presente nella lista.
+8. Creare una nuova lista contenente i nomi scritti in ordine inverso e stamparla.
+9. Stampare il numero totale dei partecipanti.
+"""
+
+partecipanti = ["Bulbasaur", "Charmander", "Squirtle", "Caterpie", "Weedle", "Pidgey"]
+print(partecipanti)
+print(f"Dal primo all'ultimo: {partecipanti[0], partecipanti[5]}") #stampa primo e ultimo elemento
+print(f"I primi tre: {partecipanti[0:3]}") #stampa i primi 3
+print(f"Ultimi tre: {partecipanti[3:]}") #stampa gli ultimi
+print(f"Dalla seconda alla quinta posizione: {partecipanti[1:5]}") #stampa dalla seconda alla quinta posizione
+print(f"Il nome più lungo dei partecipanti è: {max(partecipanti)}") #stampa il nome più lungo
+
+
+print("\n")
+partecipanti_reversed = partecipanti[::-1]
+print(f"Lista inversa: {partecipanti_reversed}")
+
+print("\n")
+print(f"Numero totale di partecipanti: {len(partecipanti)}") #stampa il numero totale dei partecipanti
